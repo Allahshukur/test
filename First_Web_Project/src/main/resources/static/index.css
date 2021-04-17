@@ -1,0 +1,344 @@
+/*ders 30, 31, 32*/
+
+.name {
+    background: #00FFBF;
+    padding: 0px 0px 0px 10px;
+    border-radius: 30px;
+    border-color: red;
+    color: red;
+    font-size: 20px;
+    outline: none;
+    align-content: center;
+}
+
+#AddBtn,#backBtn, .students, .teachers {
+    background: red;
+    color: black;
+    border-radius: 30px;
+    font-size: 25px;
+    margin: 0 0 0 30px;
+    outline: none;
+    width: 200px;
+}
+
+.btn-outline-primary {
+    border-radius: 15px !important;
+    background: slateblue !important;
+    color: white !important;
+    width: 150px;
+}
+.btn-outline-primary:hover {
+    background: cornflowerblue !important;
+}
+
+#addModal, #updateModal, #deleteModal {
+    background: cornflowerblue !important;
+    border-radius: 20px !important;
+}
+
+.addBtn {
+    width: 100%;
+    text-align: right;
+}
+
+.closeBtn {
+    background: dimgray !important;
+}
+
+.tableSearch {
+    margin-left: 50px !important;
+}
+
+.btn-success{
+    width: 150px;
+    border-radius: 15px !important;
+    margin-left: 20px !important;
+}
+
+.btn-warning {
+    background: #FF0000 !important;
+    color: white !important;
+    width: 150px;
+    border-radius: 15px !important;
+    margin-left: 20px !important;
+}
+
+.btn-warning:hover {
+    background: darkred !important;
+    color: white !important;
+}
+
+.nameOfPageHead {
+    background: slateblue;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.nameOfPageHead h1 {
+    text-align: center;
+    font-size: 20px;
+}
+
+.studentPanelForm{
+    background: slateblue;
+}
+
+.deleteBtn{
+    background: red;
+    color: black;
+    border-radius: 30px;
+    font-size: 25px;
+    margin: 0 0 0 10px;
+    outline: none;
+    width: 100px;
+}
+
+.updateBtn {
+    background: cornflowerblue;
+    color: black;
+    border-radius: 30px;
+    font-size: 25px;
+    margin: 0 0 0 10px;
+    outline: none;
+    width: 100px;
+
+}
+
+.table {
+    margin-top: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    border-width: 2px;
+    text-align: center;
+    border-style: solid;
+}
+
+
+table th {
+    border-width: 2px;
+    background: black !important;
+    border-color: black;
+    border-style: solid;
+    margin-top: 5px !important;
+    font: 20px "Times New Roman";
+    text-align: center !important;
+}
+
+table td {
+    border-width: 2px;
+    margin-top: 5px !important;
+    border-color: black;
+    font: 20px "Times New Roman";
+    border-style: solid;
+}
+
+.btn-outline-danger, .btn-outline-success {
+    height: 30px;
+    border-radius: 10px !important;
+    margin-top: -5px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+
+thead .tb_controls, thead .td_controller {
+    width: 20%;
+}
+
+
+
+
+.AddPanel, .UpdatePanel {width:740px; height:auto; margin:30px auto}
+.basliq1{
+    width:710px;
+    height:40px;
+    float:left;
+    margin:10px 0 0 0;
+    padding:25px;
+    background:#00F;
+    color:#000;
+    border-radius:100px;
+    font:30px "Times New Roman",
+    Times, serif
+}
+
+.Add, .update{
+    width:740px;
+    height: auto;
+    float:left;
+    border-radius:40px;
+    background:#6FC;
+    margin:10px auto;
+    padding:10px}
+
+/*.error1 {*/
+/*    color: #F00;*/
+/*    padding: 0 0 0 10px;*/
+/*    position: absolute;*/
+/*}*/
+
+/*.error2 {*/
+/*    color:#F00;*/
+/*    margin: 0 0 0 -15px;*/
+/*}*/
+
+a{
+    text-decoration: none;
+}
+
+#isim {
+    color: red;
+    border-radius: 30px;
+    font: 17px "Times New Roman";
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 14px;
+
+}
+
+#surnameAdd {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 0px;
+}
+
+#password {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 4px;
+
+}
+
+
+
+.AddPanel, .UpdatePanel,.DeletePanel{
+    width:740px;
+    height:auto;
+    display: none;
+    position: fixed;
+    margin-top: -300px;
+    margin-left: 20%;
+}
+
+.basliq1{ width:710px; height:40px; float:left; margin:10px 0 0 0; padding:25px; background:#00F; color:#000; border-radius:100px; font:30px "Times New Roman", Times, serif}
+.Add, .update, .Delete{
+    width:740px;
+    height: auto;
+    float:left;
+    border: 1px solid;
+    border-radius:40px;
+    background:#6FC;
+    margin:10px auto;
+    padding:10px
+}
+
+.Add div, .update div{
+    margin: auto;
+    width: 350px;
+}
+
+.Add label, .update label{
+    float: left;
+}
+
+.Add span  {
+    color: #F00;
+    padding-top: 7px;
+    margin: 0 0 0 260px;
+    position: absolute;
+}
+
+
+.active {
+    color: #f200;
+    font-color: red;
+}
+
+/*.error2 {*/
+/*    color:#F00;*/
+/*    margin: 0 0 0 -15px;*/
+/*}*/
+
+a{
+    text-decoration: none;
+}
+
+/*.span {*/
+/*    padding: 0 0 0 25px;*/
+/*}*/
+
+#nameAdd,#ageAdd, #scholarshipAdd, #surnameAdd, #password {
+    color: red;
+    border-radius: 30px;
+    font: 17px "Times New Roman";
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 14px;
+    height: 25px;
+    float: right;
+}
+
+#studentPanelRest {
+    margin-left: 500px;
+}
+
+.studentPanelRest {
+    background: #00FFBF !important;
+    font: 20px "Times New Roman";
+}
+
+#nameUpdate,#ageUpdate, #scholarshipUpdate, #surnameUpdate, #passwordUpdate {
+    color: red;
+    border-radius: 30px;
+    font: 17px "Times New Roman";
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 14px;
+    height: 25px;
+    float: right;
+}
+
+#Male, #Female {
+    color: red;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: Times New Roman;
+    outline: none;
+    padding: 0 10px;
+    margin: 0 0 0 20px;
+
+}
+
+
+#Add, #Update, #CloseAdd, #closeUpdate, #closeBtn, #yesBtn {
+    width: 200px;
+    background: red;
+    color: black;
+    border-radius: 30px;
+    font-size: 25px;
+    margin: 10px 0 0 50px;
+    outline: none;
+}
+
+.AreYouSure {
+    margin-left: 300px;
+    font-size: 20px;
+}
+
+#delateAndAddPanel,#delateAndUpadatePanel{
+    width: 70%;
+}
+#yesAndClosePanel{
+    width: 70%;
+    margin-left: 100px;
+}
+
+

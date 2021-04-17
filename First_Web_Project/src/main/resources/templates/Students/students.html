@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Student and Teacher Management</title>
+    <link rel="stylesheet" href="../index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+
+    <script>
+
+        function deletStudents(){
+
+            var students = {
+                id:document.getElementById("idDelete").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {  // bir eded funksiya yazilir ve deyilirki eger evvelki funksiya isini qurtaribsa bu funksiya ise dussun ona gorede gozeleyir eks halda biz showAllStudents funskiyasin cagirsag evvelki isin bitirmemis ise dusecek ve add olunan studenti tapa bilmeyecek.
+                showAllStudents();
+            }
+            xmlHttp.open("DELETE", "http://localhost:8080/Rest/Students/"+students.id, false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(students));
+
+        }
+
+        function updateStudent(){
+            var students = {
+                id: document.getElementById("idUpdate").value,
+                name: document.getElementById("nameUpdate").value,
+                surname: document.getElementById("surnameUpdate").value,
+                age: document.getElementById("ageUpdate").value,
+                scholarship: document.getElementById("scholarshipUpdate").value
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {  // bir eded funksiya yazilir ve deyilirki eger evvelki funksiya isini qurtaribsa bu funksiya ise dussun ona gorede gozeleyir eks halda biz showAllStudents funskiyasin cagirsag evvelki isin bitirmemis ise dusecek ve add olunan studenti tapa bilmeyecek.
+                showAllStudents();
+            }
+            xmlHttp.open("PUT", "http://localhost:8080/Rest/Students", false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(students));
+        }
+
+        function clearAdd(){
+            document.getElementById("nameAdd").value="";
+            document.getElementById("surnameAdd").value="";
+            document.getElementById("ageAdd").value="";
+            document.getElementById("scholarshipAdd").value="";
+        }
+
+        function addStudents() {
+            var students = {
+                name: document.getElementById("nameAdd").value,
+                surname: document.getElementById("surnameAdd").value,
+                age: document.getElementById("ageAdd").value,
+                scholarship: document.getElementById("scholarshipAdd").value,
+            }
+
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                    showAllStudents();
+            }
+            xmlHttp.open("POST", "http://localhost:8080/Rest/Students", false);
+            xmlHttp.setRequestHeader('Content-type', 'application/json');
+            xmlHttp.send(JSON.stringify(students));
+            clearAdd();
+
+        }
+
+        function showAllStudents() {
+            document.getElementById("tableStudentRows").innerHTML = "";
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.open("GET", "http://localhost:8080/Rest/Students", false);
+            xmlHttp.send(null);
+            var list = JSON.parse(xmlHttp.responseText);
+
+            var studentPanelRest = document.getElementById("tableStudentRows");
+
+            var tableStudentRows = " <tr >\n" +
+                "        <td >:id</td>\n" +
+                "        <td >:name</td>\n" +
+                "        <td >:surname</td>\n" +
+                "        <td >:age</td>\n" +
+                "        <td >:scholarship</td>\n" +
+                "        <td >:school</td>\n" +
+                "        <td >:teacher</td>\n" +
+                "        <td class=\"td_controller\">\n" +
+                "        <button type=\"submit\" class=\"btn btn-outline-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deletePanel\"\n" +
+                "                    value=\":id\"onclick=\"fillSelectedItemForDelete(:id)\">Delete </button>\n" +
+                "            <button type=\"button\" class=\"btn btn-outline-success\" data-bs-toggle=\"modal\" data-bs-target=\"#updatePanel\"\n" +
+                "                    onclick=\"fillSelectedItemForUpdate(\n" +
+                "                            :id,\n" +
+                "                            ':name',\n" +
+                "                            ':surname',\n" +
+                "                            :age,\n" +
+                "                            :scholarship\n" +
+                "                        )\">\n" +
+                "                Update </button>\n" +
+                "        </td>\n" +
+                "    </tr>";
+
+            for (var i = 0; i < list.length; i++) {
+
+                var teachers = "";
+                for (var j = 0; j < list[i].teacherList.length; j++) {
+                    teachers += list[i].teacherList[j].name;
+                }
+
+                var schools = "";
+                if (list[i].school == null) {
+                    schools="";
+                } else {
+                    schools = list[i].school.name;
+                }
+
+                studentPanelRest.innerHTML = studentPanelRest.innerHTML +
+                    tableStudentRows.replaceAll(":id", list[i].id).replaceAll(":name", list[i].name).replaceAll(":surname", list[i].surname)
+                        .replaceAll(":age", list[i].age).replaceAll(":scholarship", list[i].scholarship)
+                        .replaceAll(":teacher", teachers).replaceAll(":school", schools);
+            }
+        }
+
+        function hideStudents(){
+            document.getElementById("tableStudentRows").innerHTML="";
+        }
+
+
+        function fillSelectedItemForUpdate(id, name, surname, age, scholarship) {
+            document.getElementById("idUpdate").value = id;
+            document.getElementById("nameUpdate").value = name;
+            document.getElementById("surnameUpdate").value = surname;
+            document.getElementById("ageUpdate").value = age;
+            document.getElementById("scholarshipUpdate").value = scholarship;
+            // document.getElementById("schoolUpdate").value=school;
+            // document.getElementById("UpdatePanel").style = "display: block";
+            // document.getElementById("AddPanel").style = "display: none";
+            // document.getElementById("DeletePanel").style = "display: none";
+        }
+
+        function fillSelectedItemForDelete(id) {
+            document.getElementById("idDelete").value = id;
+            // document.getElementById("DeletePanel").style = "display: block"
+            // document.getElementById("UpdatePanel").style = "display: none"
+            // document.getElementById("AddPanel").style = "display: none"
+        }
+
+    </script>
+
+</head>
+<body background="" bgcolor="blue-dark">
+
+<div>
+    <button onclick="showAllStudents()">Show students</button>
+    <button onclick="hideStudents()">Hide students</button>
+</div>
+
+
+<div class="nameOfPageHead">
+    <h1>Welcome to Students Page</h1>
+</div>
+<br>
+
+<form method="get" action="/Students" class="tableSearch">
+    Name: <input type="text" class="name" id="name" name="name"/>
+    Surname : <input type="text" class="name" id="surname" name="surname"/>
+    Age: <input type="number" class="name" id="age" maxlength="3" name="age"/>
+    Scholarship: <input type="number" class="name" id="scholarsipSearch" name="scholarship"/><br><br>
+    <button type="submit" class="btn btn-outline-primary">Search</button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPanel">Add</button>
+    <button type="button" class="btn btn-warning"><a href="/index">Back</a></button>
+</form>
+
+
+<table class="table table-dark table-hover">
+    <thead>
+    <tr>
+        <th class="tb_id">id</th>
+        <th class="tb_name">Name</th>
+        <th class="tb_surname">Surname</th>
+        <th class="tb_age">Age</th>
+        <th class="tb_scholarsip">Scholarship</th>
+        <th class="tb_school">School</th>
+        <th class="tb_teachers">Teachers</th>
+        <th class="tb_controls">Controls</th>
+    </tr>
+    </thead>
+    <tbody id="tableStudentRows">
+
+    </tbody>
+</table>
+
+
+<div>
+        <div class="modal" tabindex="-1" id="addPanel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="addModal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Students</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label>Name:</label>
+                            <input type="text" name="name" id="nameAdd" placeholder="Name" required>
+                            <br><br>
+
+                            <label class="surnameReg">Surname:</label>
+                            </label> <input type="text" name="surname" id="surnameAdd" placeholder="Surname" required>
+                            <br><br>
+
+                            <label>Age:</label>
+                            <input type="number" name="age" id="ageAdd" placeholder="Age" required>
+                            <br><br>
+
+                            <label>Scholarsip:</label>
+                            <input type="number" name="scholarship" id="scholarshipAdd" placeholder="Scholarship"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="addBtn">
+                            <button name="Add" class="btn btn-success" onclick="addStudents()" data-bs-dismiss="modal">Add</button>
+                            <button name="Close" class="btn btn-success closeBtn" data-bs-dismiss="modal">Close</button>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div>
+        <div class="modal" tabindex="-1" id="updatePanel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="updateModal">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update Students</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div>
+                            <input type="hidden" name="id" id="idUpdate">
+
+                            <label>Name:</label>
+                            <input type="text" name="name" id="nameUpdate" placeholder="Name" required>
+                            <!--            <span class="error1">*</span>-->
+                            <br><br>
+                            <label class="surnameReg">Surname:</label>
+                            </label> <input type="text" name="surname" id="surnameUpdate" placeholder="Surname"
+                                            required>
+                            <!--            <span class="error1">*</span>-->
+                            <br><br>
+
+                            <label>Age:</label>
+                            <input type="number" name="age" id="ageUpdate" placeholder="Age" required>
+                            <!--            <span class="error1">*</span>-->
+                            <br><br>
+
+                            <label>Scholarsip:</label>
+                            <input type="number" name="scholarship" id="scholarshipUpdate" placeholder="Scholarship"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="submit" name="update" class="btn btn-success" onclick="updateStudent()" data-bs-dismiss="modal">Update</button>
+                            <button type="button" name="update" class="btn btn-success closeBtn" data-bs-dismiss="modal">Close</button>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<div>
+        <div class="modal" tabindex="-1" id="deletePanel">
+            <div class="modal-dialog">
+                <div class="modal-content" id="deleteModal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Delete</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <input type="hidden" name="id" id="idDelete">
+                        <h5>Are you Sure to Delete?</h5> </br> </br>
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <button type="submit" class="btn btn-warning" onclick="deletStudents()" data-bs-dismiss="modal">Yes</button>
+                            <button type="button" class="btn btn-success closeBtn"
+                                    data-bs-dismiss="modal">No
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<script>
+    showAllStudents();
+</script>
+
+</body>
+</html>
